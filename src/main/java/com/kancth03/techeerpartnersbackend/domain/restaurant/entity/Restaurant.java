@@ -1,5 +1,6 @@
 package com.kancth03.techeerpartnersbackend.domain.restaurant.entity;
 
+import com.kancth03.techeerpartnersbackend.domain.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
@@ -24,6 +27,9 @@ public class Restaurant {
 
     @Column(nullable = false, updatable = false, unique = true, length = 100)
     private String name;
+
+    @OneToMany(mappedBy = "restaurant_id")
+    private List<Review> reviews = new ArrayList<>();
 
     @Setter
     @Enumerated(EnumType.STRING)
