@@ -26,7 +26,7 @@ public class RestaurantService {
         Optional<Restaurant> findRestaurant = restaurantRepository.findByName(restaurantName);
 
         if (findRestaurant.isPresent()) {
-            throw new IllegalArgumentException("이미 존재하는 레스토랑명입니다.");
+            throw new IllegalArgumentException("레스토랑명 중복");
         }
     }
 }
