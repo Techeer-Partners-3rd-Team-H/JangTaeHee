@@ -1,9 +1,6 @@
 package com.kancth03.techeerpartnersbackend.domain.restaurant.service;
 
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.AddRestaurantRequest;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.AddRestaurantResponse;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.ModifyCategoryRequest;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.ModifyCategoryResponse;
+import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.*;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.entity.Restaurant;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.entity.RestaurantCategory;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.repository.RestaurantRepository;
@@ -11,7 +8,7 @@ import com.kancth03.techeerpartnersbackend.domain.restaurant.validate.Restaurant
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -41,4 +38,19 @@ public class RestaurantService {
         return new ModifyCategoryResponse(restaurant.getName(), oldCategory, restaurant.getCategory());
     }
 
+    public List<FindRestaurantResponse> findRestaurantList() {
+        List<Restaurant> restaurantList = restaurantRepository.findAll();
+
+        return restaurantList.stream()
+                .map(FindRestaurantResponse::entityToDto)
+                .toList();
+    }
+
+    public List<FindRestaurantResponse> findRestaurantList(RestaurantCategory category) {
+        List<Restaurant> restaurantList = restaurantRepository.findAllByCategory(category);
+
+        return restaurantList.stream()
+                .map(FindRestaurantResponse::entityToDto)
+                .toList();
+    }
 }
