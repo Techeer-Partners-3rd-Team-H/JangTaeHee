@@ -60,4 +60,10 @@ public class RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
         return FindRestaurantResponse.entityToDto(restaurant);
     }
+
+    public void deleteRestaurant(Long restaurantId) {
+        restaurantValidate.restaurantValidate(restaurantId);
+
+        restaurantRepository.deleteById(restaurantId);
+    }
 }

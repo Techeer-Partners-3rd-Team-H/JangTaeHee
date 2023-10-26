@@ -30,6 +30,8 @@ public class RestaurantController {
 
     @GetMapping
     public List<FindRestaurantResponse> findRestaurantList(@RequestParam(required = false) RestaurantCategory category) {
+        // 레스토랑의 전체 목록을 조회할 수 있습니다.
+        // 레스토랑 카테고리에 따른 레스토랑 목록 조회를 할 수 있습니다.
         if (category == null) {
             return restaurantService.findRestaurantList();
         }
@@ -38,6 +40,13 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantId}")
     public FindRestaurantResponse findRestaurant(@PathVariable Long restaurantId) {
+        // 레스토랑 명, 카테고리, 음식점의 생성 일자가 반환 되어야 합니다.
         return restaurantService.findRestaurant(restaurantId);
+    }
+
+    @DeleteMapping("/{restaurantId}")
+    public void deleteRestaurant(@PathVariable Long restaurantId) {
+        // 레스토랑의 삭제로 인하여 작성된 리뷰들이 삭제 되면 안됩니다. (Soft Delete)
+        restaurantService.deleteRestaurant(restaurantId);
     }
 }
