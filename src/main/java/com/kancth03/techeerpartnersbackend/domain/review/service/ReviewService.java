@@ -10,7 +10,12 @@ import com.kancth03.techeerpartnersbackend.domain.review.entity.Review;
 import com.kancth03.techeerpartnersbackend.domain.review.repository.ReviewRepository;
 import com.kancth03.techeerpartnersbackend.domain.review.validate.ReviewValidate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -52,5 +57,16 @@ public class ReviewService {
 
         Review review = reviewRepository.findById(reviewId).orElseThrow();
         return ReviewResponse.entityToDto(review);
+    }
+
+    public Page<ReviewResponse> findReviewList(Long restaurantId, Pageable pageable) {
+        restaurantValidate.restaurantValidate(restaurantId);
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        Page<Review> reviewPage = reviewRepository.findByRestaurant(restaurant, pageable);
+        List<ReviewResponse> dtoList = reviewPage.stream()
+                .map(ReviewResponse::entityToDto)
+                .toList();
+        return new PageImpl<>(dtoList);
     }
 }
