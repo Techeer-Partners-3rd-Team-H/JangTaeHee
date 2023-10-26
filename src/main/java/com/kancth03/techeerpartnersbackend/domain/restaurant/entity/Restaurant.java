@@ -39,12 +39,8 @@ public class Restaurant {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    private Restaurant(String name, RestaurantCategory category) {
+    public Restaurant(String name, RestaurantCategory category) {
         this.name = name;
         this.category = category;
-    }
-
-    public static Restaurant of(String name, RestaurantCategory category) {
-        return new Restaurant(name, category);
     }
 }
