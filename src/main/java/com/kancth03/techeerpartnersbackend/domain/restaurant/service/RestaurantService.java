@@ -53,4 +53,11 @@ public class RestaurantService {
                 .map(FindRestaurantResponse::entityToDto)
                 .toList();
     }
+
+    public FindRestaurantResponse findRestaurant(Long restaurantId) {
+        restaurantValidate.restaurantValidate(restaurantId);
+
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow();
+        return FindRestaurantResponse.entityToDto(restaurant);
+    }
 }
