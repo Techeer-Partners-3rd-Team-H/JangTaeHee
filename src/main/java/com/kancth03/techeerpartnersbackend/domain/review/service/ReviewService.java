@@ -4,6 +4,7 @@ import com.kancth03.techeerpartnersbackend.domain.restaurant.entity.Restaurant;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.repository.RestaurantRepository;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.validate.RestaurantValidate;
 import com.kancth03.techeerpartnersbackend.domain.review.dto.AddReviewRequest;
+import com.kancth03.techeerpartnersbackend.domain.review.dto.ModifyReviewRequest;
 import com.kancth03.techeerpartnersbackend.domain.review.dto.ReviewResponse;
 import com.kancth03.techeerpartnersbackend.domain.review.entity.Review;
 import com.kancth03.techeerpartnersbackend.domain.review.repository.ReviewRepository;
@@ -33,5 +34,16 @@ public class ReviewService {
         reviewValidate.reviewValidate(reviewId);
 
         reviewRepository.deleteById(reviewId);
+    }
+
+    public ReviewResponse modifyReview(ModifyReviewRequest request) {
+        reviewValidate.reviewValidate(request.reviewId());
+
+        Review review = reviewRepository.findById(request.reviewId()).orElseThrow();
+        review.setTitle(request.title());
+        review.setContent(request.content());
+        // 실시간 쿼리 확인용
+        Review modifiedReview = reviewRepository.save(review);
+        return ReviewResponse.entityToDto(modifiedReview);
     }
 }

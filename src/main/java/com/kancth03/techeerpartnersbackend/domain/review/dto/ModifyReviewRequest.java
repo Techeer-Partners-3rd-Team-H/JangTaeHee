@@ -1,7 +1,7 @@
 package com.kancth03.techeerpartnersbackend.domain.review.dto;
 
-public record AddReviewRequest(
-        Long restaurantId,
+public record ModifyReviewRequest(
+        Long reviewId,
         String title,
         String content
 ) {
