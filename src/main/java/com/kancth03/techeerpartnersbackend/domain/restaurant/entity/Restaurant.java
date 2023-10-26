@@ -2,7 +2,6 @@ package com.kancth03.techeerpartnersbackend.domain.restaurant.entity;
 
 import com.kancth03.techeerpartnersbackend.domain.review.entity.Review;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
