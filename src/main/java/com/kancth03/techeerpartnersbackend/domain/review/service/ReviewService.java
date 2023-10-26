@@ -46,4 +46,11 @@ public class ReviewService {
         Review modifiedReview = reviewRepository.save(review);
         return ReviewResponse.entityToDto(modifiedReview);
     }
+
+    public ReviewResponse findReview(Long reviewId) {
+        reviewValidate.reviewValidate(reviewId);
+
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        return ReviewResponse.entityToDto(review);
+    }
 }
