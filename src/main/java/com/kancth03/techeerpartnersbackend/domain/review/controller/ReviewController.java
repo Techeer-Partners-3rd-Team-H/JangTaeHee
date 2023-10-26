@@ -5,6 +5,8 @@ import com.kancth03.techeerpartnersbackend.domain.review.dto.ModifyReviewRequest
 import com.kancth03.techeerpartnersbackend.domain.review.dto.ReviewResponse;
 import com.kancth03.techeerpartnersbackend.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -19,8 +21,13 @@ public class ReviewController {
         return reviewService.addReview(request);
     }
 
-    @GetMapping("/{reviewId}")
-    public ReviewResponse findReview(@PathVariable Long reviewId) {
+    @GetMapping("/{restaurantId}")
+    public Page<ReviewResponse> findReviewList(@PathVariable Long restaurantId, Pageable pageable) {
+        return reviewService.findReviewList(restaurantId, pageable);
+    }
+
+    @GetMapping
+    public ReviewResponse findReview(@RequestParam Long reviewId) {
         return reviewService.findReview(reviewId);
     }
 
