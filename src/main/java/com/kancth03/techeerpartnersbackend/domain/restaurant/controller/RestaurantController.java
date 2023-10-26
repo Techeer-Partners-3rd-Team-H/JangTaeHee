@@ -1,12 +1,12 @@
 package com.kancth03.techeerpartnersbackend.domain.restaurant.controller;
 
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.AddRestaurantRequest;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.AddRestaurantResponse;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.ModifyCategoryRequest;
-import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.ModifyCategoryResponse;
+import com.kancth03.techeerpartnersbackend.domain.restaurant.dto.*;
+import com.kancth03.techeerpartnersbackend.domain.restaurant.entity.RestaurantCategory;
 import com.kancth03.techeerpartnersbackend.domain.restaurant.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,5 +26,13 @@ public class RestaurantController {
     public ModifyCategoryResponse modifyCategory(@RequestBody ModifyCategoryRequest request) {
         // 리뷰를 수정할 수 있습니다.
         return restaurantService.modifyCategory(request);
+    }
+
+    @GetMapping
+    public List<FindRestaurantResponse> findRestaurantList(@RequestParam(required = false) RestaurantCategory category) {
+        if (category == null) {
+            return restaurantService.findRestaurantList();
+        }
+        return restaurantService.findRestaurantList(category);
     }
 }
