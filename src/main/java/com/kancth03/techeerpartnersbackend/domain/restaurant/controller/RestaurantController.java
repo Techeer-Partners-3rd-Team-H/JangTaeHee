@@ -35,4 +35,9 @@ public class RestaurantController {
         }
         return restaurantService.findRestaurantList(category);
     }
+
+    @GetMapping("/{restaurantId}")
+    public FindRestaurantResponse findRestaurant(@PathVariable Long restaurantId) {
+        return restaurantService.findRestaurant(restaurantId);
+    }
 }
